@@ -129,17 +129,6 @@ The frontend will be available on the local development server provided by Vite.
 
 ---
 
-## Future Improvements
-
-* AI-powered symptom prediction
-* Integration with healthcare APIs
-* Appointment scheduling
-* Electronic health record support
-* Advanced analytics dashboard
-* Multi-hospital coordination system
-
----
-
 ## Contributors
 
 Developed as part of a healthcare technology project focused on improving emergency response and patient care coordination.
