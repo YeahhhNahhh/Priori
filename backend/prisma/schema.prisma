@@ -1,0 +1,173 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id              String   @id @default(uuid())
+  role            String   @default("PATIENT") // PATIENT, ADMIN
+  name            String
+  phone           String?
+  email           String   @unique
+  password_hash   String
+  // Patient specific
+  history_diabetes  Boolean? @default(false)
+  history_bp        String?
+  history_allergies String?
+  medicalProfileData String? // JSON string for all other traits
+
+  // Admin specific
+  hospitalId      String?
+  hospital        Hospital? @relation(fields: [hospitalId], references: [id])
+  
+  dependents      FamilyProfile[]
+  triageCases     TriageCase[]
+  sosRequests     SOSRequest[]
+  feedback        Feedback[]
+  medicalRecords  MedicalRecord[]
+  
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+model FamilyProfile {
+  id              String   @id @default(uuid())
+  userId          String
+  user            User     @relation(fields: [userId], references: [id])
+  
+  name            String
+  age             Int
+  gender          String?
+  relationship    String
+  phone           String?
+  
+  history_bp       String?
+  history_allergies String?
+  history_notes    String?
+  medicalProfileData String? // JSON string
+  
+  triageCases     TriageCase[]
+  
+  createdAt       DateTime @default(now())
+}
+
+model Hospital {
+  id               String   @id @default(uuid())
+  name             String
+  lat              Float
+  lng              Float
+  address          String?
+  phone            String?
+  
+  availableBeds    Int      @default(0)
+  icuBeds          Int      @default(0)
+  availableDoctors Int      @default(0)
+  ambulances       Int      @default(0)
+  
+  admins           User[]
+  triageCases      TriageCase[]
+  sosRequests      SOSRequest[]
+  alerts           Alert[]
+  medicalRecords   MedicalRecord[]
+  feedbacks        Feedback[]
+
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+}
+
+model TriageCase {
+  id                String   @id @default(uuid())
+  
+  patientId         String
+  patient           User     @relation(fields: [patientId], references: [id])
+  familyProfileId   String?
+  familyProfile     FamilyProfile? @relation(fields: [familyProfileId], references: [id])
+  
+  hospitalId        String?
+  hospital          Hospital? @relation(fields: [hospitalId], references: [id])
+  
+  symptoms          String      // Stored as JSON string
+  targetedAnswers   String      // Stored as JSON string
+  additionalNotes   String?
+  conditionAnswers  String      // Stored as JSON string
+
+  priorityLevel     String        @default("LOW") // HIGH, MEDIUM, LOW
+  priorityInsight   String?       
+  etaMinutes        Int?          
+  status            String        @default("IN_QUEUE") // IN_QUEUE, ARRIVED, SEEN_BY_DOCTOR, CANCELLED
+  locationLat       Float?
+  locationLng       Float?
+  queuePosition     Int?          
+  
+  feedbackRequested Boolean   @default(false)
+
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+}
+
+model SOSRequest {
+  id                String    @id @default(uuid())
+  patientId         String
+  patient           User      @relation(fields: [patientId], references: [id])
+  hospitalId        String
+  hospital          Hospital  @relation(fields: [hospitalId], references: [id])
+  
+  locationLat       Float
+  locationLng       Float
+  description       String?
+  ambulanceRequired Boolean   @default(false)
+  requirements      String?     // JSON string
+  
+  status            String    @default("PENDING") // PENDING, DISPATCHED, ACKNOWLEDGED, RESOLVED
+  
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+}
+
+model Alert {
+  id                String    @id @default(uuid())
+  hospitalId        String
+  hospital          Hospital  @relation(fields: [hospitalId], references: [id])
+  targetPatientId   String
+  
+  message           String
+  read              Boolean   @default(false)
+  
+  createdAt         DateTime  @default(now())
+}
+
+model Feedback {
+  id                String    @id @default(uuid())
+  patientId         String
+  patient           User      @relation(fields: [patientId], references: [id])
+  
+  experience        String    
+  easeOfUse         String
+  timeTaken         String
+  clarity           String
+  helpfulness       String
+  comments          String?
+  
+  hospitalId        String?
+  hospital          Hospital? @relation(fields: [hospitalId], references: [id])
+  
+  createdAt         DateTime  @default(now())
+}
+
+model MedicalRecord {
+  id              String   @id @default(uuid())
+  patientId       String
+  patient         User     @relation(fields: [patientId], references: [id])
+  hospitalId      String
+  hospital        Hospital @relation(fields: [hospitalId], references: [id])
+  date            DateTime @default(now())
+  summary         String
+  diagnosis       String?
+
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}

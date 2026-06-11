@@ -1,0 +1,339 @@
+@import "tailwindcss";
+
+/* ============================================
+   PRIORI DESIGN SYSTEM — YouTube-Inspired
+   Palette: #7DAACB #E8DBB3 #FFFDEB #CE2626
+   ============================================ */
+
+@theme inline {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+
+  /* Brand colors */
+  --color-accent:     #7DAACB;
+  --color-accent-dark: #5f93b8;
+  --color-beige:      #E8DBB3;
+  --color-cream:      #FFFDEB;
+  --color-danger:     #CE2626;
+  --color-danger-dark: #ff4e45;
+}
+
+/* ---- CSS Custom Properties (light + dark) ---- */
+@layer base {
+  :root {
+    --bg-primary:       255 253 235;   /* #FFFDEB cream      */
+    --bg-secondary:     255 255 255;   /* #FFFFFF white      */
+    --bg-hover:         255 234 234;   /* red-tinted hover   */
+    --bg-sidebar:       255 249 249;   /* subtle red sidebar */
+    --text-primary:     17  17  17;    /* near-black         */
+    --text-secondary:   96  96  96;    /* medium gray        */
+    --border-color:     238 208 208;   /* red-tinted border  */
+    --accent:           206 38  38;    /* #CE2626 red        */
+    --accent-hover:     168 20  20;    /* darker red         */
+    --accent-subtle:    rgba(206,38,38,0.10); /* active bg   */
+    --accent-gradient:  148 10  10;    /* deep red gradient  */
+    --color-red:        206 38  38;    /* #CE2626            */
+    --shadow-sm:        0 1px 4px rgba(0,0,0,0.06);
+    --shadow-md:        0 4px 16px rgba(0,0,0,0.10);
+  }
+
+  .dark {
+    --bg-primary:       15  15  15;    /* #0f0f0f YT black   */
+    --bg-secondary:     33  33  33;    /* #212121 YT surface */
+    --bg-hover:         61  61  61;    /* #3d3d3d hover      */
+    --bg-sidebar:       15  15  15;
+    --text-primary:     241 241 241;   /* #f1f1f1            */
+    --text-secondary:   170 170 170;   /* #aaaaaa            */
+    --border-color:     61  61  61;    /* dark border        */
+    --accent:           125 170 203;   /* blue in dark mode  */
+    --accent-hover:     155 193 220;
+    --accent-subtle:    rgba(125,170,203,0.12);
+    --accent-gradient:  95  147 184;   /* darker blue        */
+    --color-red:        255 78  69;    /* brighter for dark  */
+    --shadow-sm:        0 1px 4px rgba(0,0,0,0.3);
+    --shadow-md:        0 4px 16px rgba(0,0,0,0.4);
+  }
+
+  *, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    background-color: rgb(var(--bg-primary));
+    color: rgb(var(--text-primary));
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    line-height: 1.5;
+  }
+
+  /* Scrollbar styling */
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb {
+    background: rgb(var(--border-color));
+    border-radius: 99px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgb(var(--text-secondary));
+  }
+}
+
+/* ============================================
+   REUSABLE COMPONENT CLASSES
+   ============================================ */
+
+@layer components {
+
+  /* --- Cards --- */
+  .card {
+    background-color: rgb(var(--bg-secondary));
+    border: 1px solid rgb(var(--border-color));
+    border-radius: 12px;
+    padding: 24px;
+    transition: box-shadow 0.2s ease, border-color 0.2s ease;
+  }
+  .card:hover {
+    box-shadow: var(--shadow-md);
+  }
+
+  /* Legacy alias so old glass-card still works */
+  .glass-card {
+    background-color: rgb(var(--bg-secondary));
+    border: 1px solid rgb(var(--border-color));
+    border-radius: 12px;
+    padding: 24px;
+    transition: box-shadow 0.2s ease;
+  }
+  .glass-card:hover {
+    box-shadow: var(--shadow-md);
+  }
+
+  /* --- Buttons --- */
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background-color: rgb(var(--accent));
+    color: #fff;
+    font-weight: 600;
+    font-size: 1rem;
+    border-radius: 9999px;
+    padding: 11px 26px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.15s ease, transform 0.1s ease, opacity 0.15s;
+    user-select: none;
+    white-space: nowrap;
+  }
+  .btn-primary:hover:not(:disabled) {
+    background-color: rgb(var(--accent-hover));
+  }
+  .btn-primary:active:not(:disabled) {
+    transform: scale(0.97);
+  }
+  .btn-primary:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background-color: transparent;
+    color: rgb(var(--text-primary));
+    font-weight: 600;
+    font-size: 1rem;
+    border-radius: 9999px;
+    padding: 11px 26px;
+    border: 1px solid rgb(var(--border-color));
+    cursor: pointer;
+    transition: background-color 0.15s ease, transform 0.1s ease;
+    user-select: none;
+    white-space: nowrap;
+  }
+  .btn-secondary:hover:not(:disabled) {
+    background-color: rgb(var(--bg-hover));
+  }
+  .btn-secondary:active:not(:disabled) {
+    transform: scale(0.97);
+  }
+
+  .btn-danger {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background-color: rgb(var(--color-red));
+    color: #fff;
+    font-weight: 700;
+    font-size: 1rem;
+    border-radius: 9999px;
+    padding: 11px 26px;
+    border: none;
+    cursor: pointer;
+    transition: filter 0.15s ease, transform 0.1s ease;
+    user-select: none;
+  }
+  .btn-danger:hover:not(:disabled) {
+    filter: brightness(1.1);
+  }
+  .btn-danger:active:not(:disabled) {
+    transform: scale(0.97);
+  }
+  .btn-danger:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  /* --- Inputs --- */
+  .input-field {
+    width: 100%;
+    background-color: rgb(var(--bg-primary));
+    border: 1.5px solid rgb(var(--border-color));
+    color: rgb(var(--text-primary));
+    border-radius: 10px;
+    padding: 13px 17px;
+    font-size: 1rem;
+    font-family: var(--font-sans);
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+  .input-field::placeholder {
+    color: rgb(var(--text-secondary));
+  }
+  .input-field:focus {
+    border-color: rgb(var(--accent));
+    box-shadow: 0 0 0 3px rgba(125,170,203,0.18);
+  }
+
+  /* --- Nav item in sidebar --- */
+  .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 14px;
+    border-radius: 10px;
+    font-weight: 500;
+    font-size: 0.9375rem;
+    color: rgb(var(--text-secondary));
+    text-decoration: none;
+    transition: background-color 0.15s ease, color 0.15s ease;
+    cursor: pointer;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+  .nav-item:hover {
+    background-color: rgb(var(--bg-hover));
+    color: rgb(var(--text-primary));
+  }
+  .nav-item.active {
+    background-color: var(--accent-subtle);
+    color: rgb(var(--accent));
+    font-weight: 600;
+  }
+
+  /* --- Priority badges --- */
+  .priority-red  {
+    border-left: 3px solid rgb(var(--color-red));
+    background-color: rgba(206,38,38,0.06);
+  }
+  .priority-yellow {
+    border-left: 3px solid #eab308;
+    background-color: rgba(234,179,8,0.06);
+  }
+  .priority-low {
+    border-left: 3px solid rgb(var(--accent));
+    background-color: rgba(125,170,203,0.06);
+  }
+
+  /* --- Stat card --- */
+  .stat-card {
+    background-color: rgb(var(--bg-secondary));
+    border: 1px solid rgb(var(--border-color));
+    border-radius: 14px;
+    padding: 26px 28px;
+    transition: box-shadow 0.2s ease;
+  }
+  .stat-card:hover {
+    box-shadow: var(--shadow-md);
+  }
+
+  /* --- Badge / Pill --- */
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 9999px;
+    white-space: nowrap;
+  }
+  .badge-blue  { background: rgba(125,170,203,0.15); color: #5f93b8; }
+  .badge-green { background: rgba(34,197,94,0.12);  color: #16a34a; }
+  .badge-red   { background: rgba(206,38,38,0.12);  color: rgb(var(--color-red)); }
+  .badge-amber { background: rgba(245,158,11,0.12); color: #b45309; }
+  .dark .badge-blue  { color: rgb(var(--accent)); }
+  .dark .badge-green { color: #4ade80; }
+  .dark .badge-red   { color: #ff6b6b; }
+  .dark .badge-amber { color: #fbbf24; }
+}
+
+/* ============================================
+   UTILITY CLASSES (used with @apply)
+   ============================================ */
+@utility scrollbar-hidden {
+  &::-webkit-scrollbar { display: none; }
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* --- SOS Button --- */
+.sos-btn {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  width: 60px;
+  height: 60px;
+  border-radius: 9999px;
+  background-color: rgb(var(--color-red));
+  color: #fff;
+  font-weight: 800;
+  font-size: 0.8rem;
+  letter-spacing: 0.04em;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  box-shadow: 0 4px 20px rgba(206,38,38,0.5);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.sos-btn:hover {
+  transform: scale(1.08);
+  box-shadow: 0 6px 28px rgba(206,38,38,0.6);
+}
+.sos-btn:active {
+  transform: scale(0.95);
+}
+
+/* --- Animations --- */
+@keyframes pulse-soft {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50%       { transform: scale(1.06); opacity: 0.85; }
+}
+.animate-pulse-soft {
+  animation: pulse-soft 2.2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes ping-slow {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50%       { transform: scale(1.3); opacity: 0; }
+}

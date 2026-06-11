@@ -1,0 +1,49 @@
+=== Priori System Credentials ===
+
+[ HOSPITAL ADMINS (Password for all: admin123) ]
+- NMAMIT Hospital (Dr. Ramesh Bhat): admin1@nmamithospital.com
+- Nitte Rural Medical Center (Dr. Sunita Shetty): admin2@nitteruralmedicalcenter.com
+- Government hospital (Dr. Anand Rao): admin3@governmenthospital.com
+- Nitte Community Health Centre (Dr. Kavitha Poojary): admin4@nittecommunityhealthcentre.com
+- Nitte Gajria Hospital (Dr. Rajesh Kumar): admin5@nittegajriahospital.com
+- Dr.T.M.A. Pai Rotary Hospital (Dr. Lakshmi Narayan): admin6@drtmapairotaryhospital.com
+- Spandana Maternity & General Hospital (Dr. Suresh Prabhu): admin7@spandanamaternityandgeneralhospital.com
+- Mount Rosary Hospital (Dr. Meenakshi Iyer): admin8@mountrosaryhospital.com
+
+[ DUMMY PATIENTS IN QUEUE (Password for all: password123) ]
+
+--- Patients in queue for NMAMIT Hospital ---
+- Shruti Shetty | Check-in: patient1@demo.com
+- Meghana Rao | Check-in: patient2@demo.com
+- Sanjay Kini | Check-in: patient3@demo.com
+- Karthik Naik | Check-in: patient4@demo.com
+- Vikram Nayak | Check-in: patient5@demo.com
+- Pradeep Baliga | Check-in: patient6@demo.com
+- Ravi Mallya | Check-in: patient7@demo.com
+- Ravi Gowda | Check-in: patient8@demo.com
+- Ravi Nayak | Check-in: patient9@demo.com
+- Sneha Baliga | Check-in: patient10@demo.com
+
+--- Patients in queue for Nitte Rural Medical Center ---
+- Pradeep Baliga | Check-in: patient11@demo.com
+- Santosh Shetty | Check-in: patient12@demo.com
+- Vikram Kamath | Check-in: patient13@demo.com
+- Rashmi Shetty | Check-in: patient14@demo.com
+- Sanjay Naik | Check-in: patient15@demo.com
+- Rashmi Poojary | Check-in: patient16@demo.com
+- Kiran Poojary | Check-in: patient17@demo.com
+- Ravi Mallya | Check-in: patient18@demo.com
+- Santosh Kamath | Check-in: patient19@demo.com
+- Shruti Mallya | Check-in: patient20@demo.com
+
+--- Patients in queue for Government hospital ---
+- Karthik Mallya | Check-in: patient21@demo.com
+- Rahul Shetty | Check-in: patient22@demo.com
+- Manoj Rao | Check-in: patient23@demo.com
+- Nandini Prabhu | Check-in: patient24@demo.com
+- Pooja Baliga | Check-in: patient25@demo.com
+- Meghana Gowda | Check-in: patient26@demo.com
+- Kavya Shetty | Check-in: patient27@demo.com
+- Nandini Naik | Check-in: patient28@demo.com
+- Vikas Gowda | Check-in: patient29@demo.com
+- Rashmi Mallya | Check-in: patient30@demo.com
